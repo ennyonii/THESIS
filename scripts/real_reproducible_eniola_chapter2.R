@@ -325,91 +325,6 @@ ggsave(
 #Extra_2 ends
 
 
-#TO CALCULATE how EVI and rainfall(p7) affect PREY COMPOSITION (bray curtis and NMDS)
-library(readxl)
-HMR_IAI <- read_excel("C:/Users/eniol/OneDrive/Desktop/MY THESIS/HMR_IAI.xlsx")
-HMR_IAI_df <- as.data.frame(HMR_IAI)
-#TO Set the first column as row names and remove it from columns
-rownames(HMR_IAI_df) <- HMR_IAI_df[[1]]
-HMR_IAI_df <- HMR_IAI_df[, -1]  # Drop the 'Prey' column
-View(HMR_IAI_df)
-
-prey<-t(HMR_IAI_df)
-write.csv(prey, "prey.csv")
-View(prey)
-library(readr)
-prey_with_location <- read_csv("C:/Desktop/MY THESIS/prey.csv")
-View(prey_with_location)
-write.csv(prey_with_location, "prey_with_location.csv")
-#Hellinger transformation for IAI to standardize it
-library(vegan)
-prey_hellinger <- decostand(prey, method = "hellinger")
-nmds <- metaMDS(prey_hellinger, distance = "bray", autotransform = FALSE)
-dist_matrix <- vegdist(prey_hellinger, method = "bray")
-View(nmds)
-
-vec<-c("CAATINGA","CAATINGA","CAATINGA","CAATINGA","CAATINGA","CAATINGA","CAATINGA","CAATINGA","CAATINGA",
-       "CAATINGA","CAATINGA","CAATINGA","CAATINGA","CAATINGA","CAATINGA",
-       "ATLANTIC","ATLANTIC","ATLANTIC","ATLANTIC","ATLANTIC","ATLANTIC","ATLANTIC",
-       "ATLANTIC","ATLANTIC")
-colors <- c("blue", "red")  # adjust for your groups
-group_colors <- colors[vec]  # assigns color to each point
-
-#To fit environmental data on prey data
-library(readr)
-biomass_with_ratio <- read_csv("raw_data/biomass_with_ratio.csv")
-View(biomass_with_ratio)
-env_data <- biomass_with_ratio
-prey_with_location <- read_csv("C:/Desktop/MY THESIS/prey_with_location.csv")
-View(env_data$Location)
-View(prey_with_location)
-env_data_aligned <- env_data[match(prey_with_location$Location, env_data$Location), ]
-View(env_data_aligned)
-
-
-all(prey_with_location$Location == env_data_aligned$Location)
-en <- envfit(nmds, env_data_aligned[, c("p7", "evi_mean")], 
-             permutations = 999, na.rm = TRUE)
-print(en)
-
-#Plot
-library(ggplot2)
-site_scores <- as.data.frame(scores(nmds, display = "sites"))
-site_scores$Site <- c("Curralinho", "Curralinho", "Curralinho", "Curralinho", 
-                                          "Ilha", "Ilha", "Ilha", "Ilha", 
-                                          "Niterói", "Niterói", "Niterói", "Niterói",
-                                          "Xingó", "Xingó", "Xingó", 
-                                          "Amparo", "Amparo", "Amparo", 
-                                          "Gararu", "Gararu", "Gararu", 
-                                          "Propriá", "Propriá", "Propriá")
-# 2. Extract vector coordinates
-vec_coords <- as.data.frame(scores(en, display = "vectors")) * ordiArrowMul(en)
-rownames(vec_coords) <- c("p7", "evi_mean")
-
-# 3. Final ggplot with Colors
-NMDS_plot <- ggplot() +
-  # Plot points colored by Site
-  geom_point(data = site_scores, aes(x = NMDS1, y = NMDS2, color = Site), size = 3) +
-  # Add arrows for significant environmental variables
-  geom_segment(data = vec_coords, aes(x = 0, y = 0, xend = NMDS1, yend = NMDS2),
-               arrow = arrow(length = unit(0.25, "cm")), color = "black", size = 1) +
-  geom_text(data = vec_coords, aes(x = NMDS1, y = NMDS2, label = rownames(vec_coords)),
-            color = "black", vjust = -1) +
-  # Use a professional color palette
-  scale_color_brewer(palette = "Set1") + 
-  theme_bw() +
-  labs( subtitle = paste("Stress:", round(nmds$stress, 2)),
-        color = "Study Sites") 
-print(NMDS_plot)
-
-ggsave(
-  "NMDS_plot.png",
-  plot = NMDS_plot,       
-  width = 10,     
-  height = 7,      
-  dpi = 300
-)
-
 getwd()
 #Extra 3 - CAP ORDINATION and SIMPER
 library(readxl)
@@ -1277,6 +1192,7 @@ ggsave(
   height = 6,                               # height in inches
   dpi = 300                                 # resolution for print quality
 )
+getwd()
 #ctrl + shift + R to create new sessions
 # Resource richness model -------------------------------------------------
 View(all_data)

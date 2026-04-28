@@ -30,14 +30,15 @@ library(readr)
 library(dplyr)
 prey_data <- read_csv("raw_data/prey_with_location.csv")
 env_data <- read_csv("raw_data/biomass_with_ratio.csv")
+View(env_data)
 #Join the data using BOTH Location and Month
 env_data_aligned <- prey_data %>%
   left_join(env_data, by = c("Location", "Month"))
 
-# 5. Check the result
 View(env_data_aligned)
 
-en <- envfit(nmds, env_data_aligned[, c("p7", "evi_mean")], 
+colnames(env_data_aligned)[colnames(env_data_aligned) == "precip_p7_MERGE"] <- "p"
+en <- envfit(nmds, env_data_aligned[, c("p", "evi_mean")], 
              permutations = 999, na.rm = TRUE)
 print(en)
 
@@ -47,6 +48,7 @@ site_scores$Location <- env_data_aligned$Location
 # 5. Extract vector coordinates
 vec_coords <- as.data.frame(scores(en, display = "vectors")) * ordiArrowMul(en)
 
+library(ggplot2)
 # 6. Plotting
 NMDS_plot <- ggplot() +
   # Use the data directly from site_scores so every fish is represented
