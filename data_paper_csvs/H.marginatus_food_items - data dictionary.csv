@@ -1,0 +1,29 @@
+file_title,variable,description,data_type,key
+Sites,location_id,Unique identifier for each sampling site.,Integer,Primary key
+Sites,location_name,"Name of the geographic location (e.g., Curralinho).",String,NA
+Sites,biome,Biome classification (Caatinga or Atlantic Forest).,String,NA
+Sampling,event_id,Unique identifier for a specific sampling trip.,Integer,Primary key
+Sampling,location_id,Reference to the locations table.,Integer,Foreign key
+Sampling,Date,The date when the samples were collected (MM/DD/YYYY).,Date,NA
+Fish_info,specimen_id,Unique ID for the fish (matches original 'Number' field).,String,Primary key
+Fish_info,event_id,Unique identifier for a specific sampling trip.,Integer,Foreign key
+Fish_info,standard_length_cm,Standard length of the fish measured in centimeters.,Float,NA
+Fish_info,sex,"Biological sex of the specimen (F = Female, M = Male).",Character,NA
+Fish_info,stomach_fullness,"Degree of fullness of stomach (e.g., F1, F2, F3, VZ=Empty).",String,NA
+Diet_info,taxon_id,Unique identifier for the food item category.,Integer,Primary key
+Diet_info,taxon_name,"Name of the prey item (e.g., Formicidae, Filamentous_Algae).",String,NA
+Diet_info,source,source of food items; terrestrial or aquatic,String,NA
+Diet_info,type,type of food items; animal or vegetal,String,NA
+Diet_info,total_lenght,,Float,NA
+Diet_info,total_weight,,Float,NA
+Diet_info,reproductive_status," classification status of the reproductive status of the individual (immature, mature, in maturation, etc)",Integer,NA
+Diet_info,gonad_weight,,Float,NA
+Diet_info,gonad_weight/total_weight,,Float,NA
+Diet_info,stomach_weight,,Float,NA
+Diet_info,liver_weight,,Float,NA
+Diet_info,liver_weight/total_weight,,Float,NA
+Diet_info,fixed,"indicates if the specimen is fixed in formol and preserved in alcohol, or if it was discarded after dissection",String,NA
+Relationship,record_id,Unique identifier for this specific dietary observation.,Integer,Primary key
+Relationship,specimen_id,Unique ID for the fish (matches original 'Number' field).,String,Foreign key
+Relationship,taxon_id,Unique identifier for the food item category.,Integer,Foreign key
+Relationship,value,The volumetric measurement of the prey item.,Float,NA

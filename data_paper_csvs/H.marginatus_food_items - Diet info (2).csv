@@ -1,0 +1,65 @@
+taxon_id,taxon_name,source,type
+1,Acari,Terrestrial,Animal
+2,Amphipoda,Aquatic,Animal
+3,Aranae,Terrestrial,Animal
+4,Baetidae,Aquatic,Animal
+5,Caenidae,Aquatic,Animal
+6,Calamoceratidae,Aquatic,Animal
+7,Ceratopogonidae,Aquatic,Animal
+8,Chaoboridae,Aquatic,Animal
+9,Chironomidae (L),Aquatic,Animal
+10,Chironomidae(pupa),Aquatic,Animal
+11,Cladocera,Aquatic,Animal
+12,Colembola,Terrestrial,Animal
+13,Coleoptera,Terrestrial,Animal
+14,Coleoptera (larva),Terrestrial,Animal
+15,Copepoda,Aquatic,Animal
+16,Corixidae,Aquatic,Animal
+17,Diptera (adult),Terrestrial,Animal
+18,Diptera (pupa),Terrestrial,Animal
+19,Dytiscidae,Aquatic,Animal
+20,Elmidae,Aquatic,Animal
+21,Empididae,Aquatic,Animal
+22,Ephemeroptera,Aquatic,Animal
+23,Filamentous Algae,Aquatic,Vegetal
+24,Formicidae,Terrestrial,Animal
+25,Gerrridae,Aquatic,Animal
+26,Helicopsychidae,Aquatic,Animal
+27,Hemiptera,Aquatic,Animal
+28,Hydracarina,Aquatic,Animal
+29,Hydropsychidae,Aquatic,Animal
+30,Hymenoptera,Terrestrial,Animal
+31,Insect Remains,Terrestrial,Animal
+32,Invertebrate eggs,Terrestrial,Animal
+33,Isoptera,Terrestrial,Animal
+34,Lampyridae,Terrestrial,Animal
+35,Leptoceridae,Aquatic,Animal
+36,Leptohyphes,Aquatic,Animal
+37,Leptophlebiidae,Aquatic,Animal
+38,Libellulidae,Aquatic,Animal
+39,Naucoridae,Aquatic,Animal
+40,Noteridae,Aquatic,Animal
+41,Odonata (N),Aquatic,Animal
+42,Organic matter,Terrestrial,Animal
+43,Orthoptera,Terrestrial,Animal
+44,Ostracoda,Aquatic,Animal
+45,Philopotamidae,Aquatic,Animal
+46,Plant Matter,Terrestrial,Vegetal
+47,Plecoptera,Aquatic,Animal
+48,Pleidae,Aquatic,Animal
+49,Pseudoscorpionida,Terrestrial,Animal
+50,Psocoptera,Terrestrial,Animal
+51,Psychodidae,Terrestrial,Animal
+52,Pyralidae,Terrestrial,Animal
+53,Scales,Aquatic,Animal
+54,Sediments,Terrestrial,Animal
+55,Seeds and Fruits,Terrestrial,Vegetal
+56,Shrimp (L),Aquatic,Animal
+57,Simullidae,Aquatic,Animal
+58,Staphynilidae,Terrestrial,Animal
+59,Thysanura,Terrestrial,Animal
+60,Tingidae,Terrestrial,Animal
+61,Trichoptera,Aquatic,Animal
+62,Trichoptera (L),Aquatic,Animal
+63,Vellidae,Aquatic,Animal
+64,Vespidae,Terrestrial,Animal
