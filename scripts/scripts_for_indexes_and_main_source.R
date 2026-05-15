@@ -6,7 +6,7 @@
 #T calculate IAI
 library(readxl)
 library(readr)
-The_food_items <- read_excel("raw_data/H_M R_new.xlsx")
+The_food_items <- read_excel("raw_data/Full_dataset_2H_M R_new.xlsx")
 dim(The_food_items)
 View(The_food_items)
 columns_to_sum_CJ <- The_food_items[1:20, 9:73]  # Columns I to BU are columns 9 to 73, THIS OPERATION SUMS THE SPECIFIC FIGURES IN THE COLUMNS OF EACH FOOD ITEM UNDER THE SPECIFIED LOCATION-DATE, the result wiill be given in a table for each food item

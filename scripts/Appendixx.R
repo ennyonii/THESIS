@@ -15,15 +15,11 @@ location_codes <- colnames(data_prepared)[-1]
 
 data_long <- data_prepared %>%
   pivot_longer(
-    cols = all_of(location_codes), # Gather all columns except the 'Food_Item' column
-    names_to = "Code",           # This new column will contain the headers 'CJ', 'CA', etc.
-    values_to = "IAI"            # This new column will contain the IAI values
+    cols = where(is.numeric),   # Automatically selects only numeric columns
+    names_to = "Code",
+    values_to = "IAI"
   ) %>%
-  # Remove rows where IAI is not a number or is zero, as they don't contribute.
   filter(!is.na(IAI) & IAI > 0)
-print("--- Data correctly reshaped into long format ---")
-print(head(data_long))
-View(data_long)
 
 data_mapped <- data_long %>%
   mutate(

@@ -1,13 +1,12 @@
 # Load the tidyverse library for data manipulation
 library(tidyverse)
-
+library(readr)
 # 1. LOAD RAW DATA --------------------------------------------------------
 # Main file with food items and basic specimen info
-df_raw <- read_csv("Hemigrammus marginatus.xlsx - Food (1).csv")
-
+df_raw <- read_csv("raw_data/Hemigrammus marginatus.xlsx - Food (4).csv")
 # Supplemental dissection files
-atl_source <- read_csv("Dissecção Hemigrammus marginatus com Alimentaçao EBI.xlsx - M. Atlântica (1).csv")
-caa_source <- read_csv("Dissecção Hemigrammus marginatus com Alimentaçao EBI.xlsx - Caatinga (1).csv")
+atl_source <- read_csv("raw_data/Dissecção Hemigrammus marginatus com Alimentaçao EBI.xlsx - M. Atlântica (2).csv")
+caa_source <- read_csv("raw_data/Dissecção Hemigrammus marginatus com Alimentaçao EBI.xlsx - Caatinga (2).csv")
 
 # 2. CREATE TABLE: LOCATIONS ----------------------------------------------
 # Extract unique site and biome combinations
@@ -39,13 +38,14 @@ taxa <- data.frame(
 )
 
 # 5. PREPARE DISSECTION DATA (Source for Specimens) -----------------------
-# Combine Atlantic and Caatinga logs and create the matchable ID
+# Updated function to fix the binding error
 prepare_dissection <- function(df) {
   df %>%
+    # 1. Remove rows with missing IDs
     filter(!is.na(CIUFS) & !is.na(Nº)) %>%
+    # 2. Create the new English columns
     mutate(
       sample_id = paste0(CIUFS, "-", sprintf("%02d", as.integer(Nº))),
-      # Map Portuguese source to English database columns
       total_lenght = as.numeric(CT),
       total_weight = as.numeric(PT),
       reproductive_status = as.numeric(Estádio),
@@ -53,14 +53,18 @@ prepare_dissection <- function(df) {
       stomach_weight = as.numeric(PE),
       liver_weight = as.numeric(PF),
       fixed = Fixado
-    )
+    ) %>%
+    # 3. CRITICAL STEP: Keep ONLY the new columns
+    # This prevents 'bind_rows' from seeing the conflicting original columns (like PE)
+    select(sample_id, total_lenght, total_weight, reproductive_status, 
+           gonad_weight, stomach_weight, liver_weight, fixed)
 }
 
+# Now this will work without errors
 combined_dissection <- bind_rows(
   prepare_dissection(atl_source),
   prepare_dissection(caa_source)
 )
-
 # 6. CREATE TABLE: SPECIMENS ----------------------------------------------
 # Join the original specimen list with sampling events and dissection data
 specimens <- df_raw %>%

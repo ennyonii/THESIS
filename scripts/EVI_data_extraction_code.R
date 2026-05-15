@@ -46,10 +46,10 @@ library(terra)
 library(stringr)
 library(dplyr)
 library(ggplot2)
-
+library(readxl)
 
 # LOAD FILES & MOSAIC TILES -----------------------------------------------
-data_all <- read.csv("./data/Modelling_complete_list.csv")
+data_all <- read_excel("raw_data/Modelling_complete_list (1).xlsx")
 data_all$lon <- -data_all$lon # Correct longitude
 data_all$date_doy <- as.integer(format(as.Date(data_all$date), "%j")) # Convert calendar date to day of year (1-365)
 
@@ -57,7 +57,7 @@ data_all$date_doy <- as.integer(format(as.Date(data_all$date), "%j")) # Convert 
 comp_starts <- seq(1, 361, 8)
 data_all$MODIS_doy <- comp_starts[findInterval(data_all$date_doy - 7, comp_starts)] # floor function to assign the correct composite date
 
-tif_files <- list.files(path = "./data/EVI_EarthData_LAADS/", # folder where the EVI data is located
+tif_files <- list.files(path = "raw_data/EVI_EarthData_LAADS/", # folder where the EVI data is located
                         pattern = "MOD09Q1G_EVI.*\\.tif$", full.names = TRUE) # I converted hdf files to tif manually  
 tif_files
 
