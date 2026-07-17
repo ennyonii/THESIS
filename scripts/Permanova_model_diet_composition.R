@@ -38,8 +38,9 @@ env_data_aligned <- prey_data %>%
   left_join(env_data, by = c("Location", "Month"))
 
 View(env_data_aligned)
+write.csv(env_data_aligned, "")
 
-en <- envfit(nmds, env_data_aligned[, c("Precip_p15_MERGE", "EVI_mean")], 
+en <- envfit(nmds, env_data_aligned[, c("Precip_p15_MERGE","Precip_p1_MERGE", "EVI_mean")], 
              permutations = 999, na.rm = TRUE)
 print(en)
 
@@ -48,9 +49,9 @@ site_scores <- as.data.frame(scores(nmds, display = "sites"))
 site_scores$Location <- env_data_aligned$Location
 
 p15 <-  env_data_aligned$Precip_p15_MERGE
+p1 <-  env_data_aligned$Precip_p1_MERGE
 
-
-model_26 <- adonis2(prey_hellinger ~ EVI_mean + p15, data = env_data_aligned, method = "bray")
+model_26 <- adonis2(prey_hellinger ~ EVI_mean + p1 + p15, data = env_data_aligned, method = "bray")
 print(model_26)
 
 library(ggplot2)
@@ -59,12 +60,13 @@ library(ggplot2)
 plot_df <- as.data.frame(scores(nmds, display = "sites"))
 plot_df$EVI <- env_data_aligned$EVI_mean
 plot_df$p15 <- env_data_aligned$Precip_p15_MERGE
+plot_df$p1 <- env_data_aligned$Precip_p1_MERGE
 
 New_NMDS <- ggplot(plot_df, aes(x = NMDS1, y = NMDS2)) +
-  geom_point(aes(color = EVI, size = p15), alpha = 0.8) +
+  geom_point(aes(color = EVI, size = p15 + p1), alpha = 0.8) +
   scale_color_gradientn(
     colors = c("blue", "purple", "red"), 
-    name = "Woody Biomass Density\n(EVI)"
+    name = "Enhanced Vegetation Index \n(EVI) "
   ) +
   scale_size_continuous(
     name = "Precipitation\n(mm)", 

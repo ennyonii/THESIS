@@ -36,21 +36,60 @@ library(ggplot2)
 
 plot1 <- visreg(model_18, "evi_mean", gg = TRUE) +
   theme_bw() +
-  labs(title = "A",
-       x = "Enhanced Vegetation Index (EVI)",
+  labs(title = "A - p = 0.0466",
+       x = " ",
        y = "Levin's Index (Niche Width)")
+plot1b <- visreg(model_18, "evi_mean", gg = TRUE) +
+  theme_bw() +
+  labs(title = "A - Increased EVI = Increased generalization",
+       x = "Enhanced Vegetation Index (EVI)",
+       y = "Levin's Index (Niche Width)") +
+  theme(
+    axis.title = element_text(size = 26), # Enlarges both X and Y axis titles
+    axis.text = element_text(size = 20),  # Enlarges both X and Y axis numbers/labels
+    plot.title = element_text(size = 22, face = "bold") # Optional: bumps title size too
+  )
+plot1b
+ggsave(
+  filename = "plot1b.png",  # file name
+  plot = plot1b,
+  width = 10,
+  height = 6,
+  dpi = 300
+)
+
 
 plot2 <- visreg(model_18, "p", gg = TRUE) +
   theme_bw() +
   labs(title = "B",
-       x = "1-day Precipitation (mm)",
-       y = "Levin's Index (Niche Width)")
+       x = " ",
+       y = " ")
 
 plot3 <- visreg(model_18, "p3", gg = TRUE) +
   theme_bw() +
-  labs(title = "B",
+  labs(title = "C - p = 0.0155",
+       x = " ",
+       y = " ")
+
+plot3b <- visreg(model_18, "p3", gg = TRUE) +
+  theme_bw() +
+  labs(title = "Prolonged rainfall = Increased specialization",
        x = "15-day Precipitation (mm)",
-       y = "Levin's Index (Niche Width)")
+       y = "Levin's Index (Niche Width)") +
+
+theme(
+  axis.title = element_text(size = 26), # Enlarges both X and Y axis titles
+  axis.text = element_text(size = 20),  # Enlarges both X and Y axis numbers/labels
+  plot.title = element_text(size = 20, face = "bold") # Optional: bumps title size too
+)
+plot3b
+ggsave(
+  filename = "plot3b.png",  # file name
+  plot = plot3b,
+  width = 10,
+  height = 6,
+  dpi = 300
+)
 
 
 # Resource richness model -------------------------------------------------
@@ -68,22 +107,40 @@ testOutliers(res_4)
 # Create Plot A: EVI
 plot4 <- visreg(model_19, "evi_mean", gg = TRUE) +
   theme_bw() +
-  labs(title = "A",
-       x = "Enhanced Vegetation Index (EVI)",
+  labs(title = "D",
+       x = " ",
        y = "Resource_richness")
 
 plot5 <- visreg(model_19, "p", gg = TRUE) +
   theme_bw() +
-  labs(title = "B",
+  labs(title = "E - p = 0.0075",
+       x = " ",
+       y = " ")
+plot5b <- visreg(model_19, "p", gg = TRUE) +
+  theme_bw() +
+  labs(title = "Immediate hydrological pulse = Increased resource richness",
        x = "1-day Precipitation (mm)",
-       y = "Resosurce_richness")
+       y = "Resosurce_richness") +
+theme(
+  axis.title = element_text(size = 26), # Enlarges both X and Y axis titles
+  axis.text = element_text(size = 20),  # Enlarges both X and Y axis numbers/labels
+  plot.title = element_text(size = 16.5, face = "bold") # Optional: bumps title size too
+)
+plot5b
+ggsave(
+  filename = "plot5b.png",  # file name
+  plot = plot5b,
+  width = 10,
+  height = 6,
+  dpi = 300
+)
 
 # Create Plot B: Rain
 plot6 <- visreg(model_19, "p3", gg = TRUE) +
   theme_bw() +
-  labs(title = "B",
-       x = "15-day Precipitation (mm)",
-       y = "Resource_richness")
+  labs(title = "F - p = 0.0245",
+       x = " ",
+       y = " ")
 
 
 # Biomass ratio model -----------------------------------------------------
@@ -105,22 +162,22 @@ testOutliers(res_5)
 
 plot7 <- visreg(model_20, "evi_mean", gg = TRUE) +
   theme_bw() +
-  labs(title = "A",
+  labs(title = "G",
        x = "Enhanced Vegetation Index (EVI)",
        y = "Biomass_ratio")
 
 plot8 <- visreg(model_20, "p", gg = TRUE) +
   theme_bw() +
-  labs(title = "B",
+  labs(title = "H",
        x = "1-day Precipitation (mm)",
-       y = "Resosurce_richness")
+       y = " ")
 
 
 plot9 <- visreg(model_20, "p3", gg = TRUE) +
   theme_bw() +
-  labs(title = "B",
+  labs(title = "I",
        x = "15-day Precipitation (mm)",
-       y = "Biomass_ratio")
+       y = " ")
 
 
 
