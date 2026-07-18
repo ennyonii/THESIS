@@ -9,9 +9,7 @@ library(ggplot2)
 library(dplyr)
 library(tidyr)
 
-# ------------------------------------------------------------
-# 1. Enter data
-# ------------------------------------------------------------
+
 env <- data.frame(
   Biome = c(
     rep("Caatinga", 16),
